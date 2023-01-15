@@ -15,11 +15,15 @@ on:
     - main
     paths:
     - .github/workflows/*.yaml
+    - aqua/actionlint.yaml
+    - aqua/reviewdog.yaml
   push:
     branches:
     - main
     paths:
     - .github/workflows/*.yaml
+    - aqua/actionlint.yaml
+    - aqua/reviewdog.yaml
 permissions: {}
 jobs:
   test:
@@ -34,7 +38,13 @@ jobs:
 - actionlint
 
 ```sh
-aqua g -i reviewdog/reviewdog rhysd/actionlint
+mkdir aqua
+aqua g -o aqua/reviewdog.yaml reviewdog/reviewdog
+aqua g -o aqua/actionlint.yaml rhysd/actionlint
+```
+
+```yaml
+- import: aqua/*.yaml
 ```
 
 ## LICENSE
