@@ -12,24 +12,25 @@ env:
 on:
   pull_request:
     branches:
-    - main
+      - main
     paths:
-    - .github/workflows/*.yaml
-    - aqua/actionlint.yaml
-    - aqua/reviewdog.yaml
+      - .github/workflows/*.yaml
+      - aqua/actionlint.yaml
+      - aqua/reviewdog.yaml
   push:
     branches:
-    - main
+      - main
     paths:
-    - .github/workflows/*.yaml
-    - aqua/actionlint.yaml
-    - aqua/reviewdog.yaml
+      - .github/workflows/*.yaml
+      - aqua/actionlint.yaml
+      - aqua/reviewdog.yaml
 permissions: {}
 jobs:
   test:
     uses: suzuki-shunsuke/actionlint-workflow/.github/workflows/actionlint.yaml@31ce3ededd2a8e3037ed9ea42033a6ad0d137d2b # v0.1.0
     permissions:
       pull-requests: write
+      contents: read
 ```
 
 ## Requirements
