@@ -1,7 +1,15 @@
 name: actionlint
-on: workflow_call
+on:
+  workflow_call:
+    inputs:
+      aqua_policy_config:
+        required: false
+        type: string
 
 permissions: {}
+
+env:
+  AQUA_POLICY_CONFIG: ${{inputs.aqua_policy_config}}
 
 jobs:
   actionlint:
