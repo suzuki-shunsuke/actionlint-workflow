@@ -26,12 +26,21 @@ permissions: {}
 jobs:
   actionlint:
     uses: suzuki-shunsuke/actionlint-workflow/.github/workflows/actionlint.yaml@31ce3ededd2a8e3037ed9ea42033a6ad0d137d2b # v0.1.0
+    if: "! github.event.pull_request.head.repo.fork"
     with:
       aqua_version: v1.32.3
       aqua_policy_config: aqua-policy.yaml
     permissions:
       pull-requests: write
       contents: read
+
+  actionlint_fork:
+    uses: suzuki-shunsuke/actionlint-workflow/.github/workflows/actionlint_fork.yaml@31ce3ededd2a8e3037ed9ea42033a6ad0d137d2b # v0.1.0
+    if: github.event.pull_request.head.repo.fork
+    with:
+      aqua_version: v1.32.3
+      aqua_policy_config: aqua-policy.yaml
+    permissions: {}
 ```
 
 ## Requirements

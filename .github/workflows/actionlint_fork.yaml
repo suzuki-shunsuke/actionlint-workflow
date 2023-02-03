@@ -1,4 +1,6 @@
-name: actionlint
+---
+name: actionlint for fork
+
 on:
   workflow_call:
     inputs:
@@ -9,18 +11,17 @@ on:
         required: true
         type: string
 
-permissions: {}
-
 env:
   AQUA_POLICY_CONFIG: ${{inputs.aqua_policy_config}}
   AQUA_LOG_COLOR: always
 
+permissions: {}
+
 jobs:
-  actionlint:
+  actionlint_fork:
+    if: github.event.pull_request.head.repo.fork
     runs-on: ubuntu-latest
-    permissions:
-      pull-requests: write # For reviewdog
-      contents: read # For checkout private repository
+    permissions: {}
     steps:
       - uses: actions/checkout@ac593985615ec2ede58e132d2e21d2b1cbd6127c # v3
       - uses: aquaproj/aqua-installer@61e2563dfe7674cbf74fe6ec212e444198a3bb00 # v2.0.2
@@ -28,4 +29,6 @@ jobs:
           aqua_version: ${{inputs.aqua_version}}
         env:
           AQUA_GITHUB_TOKEN: ${{github.token}}
-      - uses: suzuki-shunsuke/github-action-actionlint@764a394381fb91f87ca8a8ad022bbeb49232df8b # v0.1.2
+      - run: actionlint
+        env:
+          AQUA_GITHUB_TOKEN: ${{github.token}}
