@@ -24,7 +24,6 @@ permissions: {}
 jobs:
   actionlint:
     uses: suzuki-shunsuke/actionlint-workflow/.github/workflows/actionlint.yaml@83ed24209b10ecf15e25f7ca6a2364a91eb7019e # v0.3.1
-    if: "! github.event.pull_request.head.repo.fork"
     with:
       aqua_version: v1.32.3
       aqua_policy_config: aqua-policy.yaml
