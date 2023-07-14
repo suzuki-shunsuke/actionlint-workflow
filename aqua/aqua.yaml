@@ -7,8 +7,7 @@
 #   supported_envs:
 #   - all
 registries:
-- type: standard
-  ref: v4.26.0 # renovate: depName=aquaproj/aqua-registry
+  - type: standard
+    ref: v4.26.0 # renovate: depName=aquaproj/aqua-registry
 packages:
-- name: reviewdog/reviewdog@v0.14.2
-- name: rhysd/actionlint@v1.6.25
+  - import: imports/*.yaml
