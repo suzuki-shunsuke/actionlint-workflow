@@ -51,7 +51,7 @@ jobs:
   enable-auto-merge:
     uses: ./.github/workflows/wc-enable-auto-merge.yaml
     if: |
-      ! failure() && ! cancelled()
+      ! failure() && ! cancelled() && github.event.pull_request.user.login == 'renovate[bot]' && contains(github.event.pull_request.body, ' **Automerge**: Enabled.')
     permissions: {}
     needs: status-check
     secrets:

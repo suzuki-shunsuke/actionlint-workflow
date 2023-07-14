@@ -10,11 +10,13 @@ on:
         required: false
 
 jobs:
-  enable_automerge:
-    uses: suzuki-shunsuke/renovate-enable-automerge-workflow/.github/workflows/enable_automerge.yaml@feat/first-pr
+  enable-auto-merge:
+    runs-on: ubuntu-latest
     permissions: {}
-    with:
-      merge_method: squash
-    secrets:
-      gh_app_id: ${{secrets.gh_app_id}}
-      gh_app_private_key: ${{secrets.gh_app_private_key}}
+    steps:
+      - uses: suzuki-shunsuke/enable-auto-merge-action@feat/first-pr
+        with:
+          pr_number: ${{github.event.pull_request.number}}
+          merge_method: squash
+          gh_app_id: ${{secrets.gh_app_id}}
+          gh_app_private_key: ${{secrets.gh_app_private_key}}
