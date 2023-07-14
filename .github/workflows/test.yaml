@@ -24,8 +24,12 @@ jobs:
               - aqua/aqua.yaml
               - aqua/imports/*.yaml
               - aqua/aqua-checksums.json
+              - .github/workflows/wc-update-aqua-checksums.yaml
+              - .github/workflows/test.yaml
             renovate-config-validator:
               - renovate.json5
+              - .github/workflows/wc-renovate-config-validator.yaml
+              - .github/workflows/test.yaml
             ghalint:
               - .github/workflows/*.yaml
               - aqua/imports/ghalint.yaml
