@@ -48,8 +48,10 @@ jobs:
     steps:
       - run: exit 1
 
-  enable-automerge:
+  enable-auto-merge:
     uses: ./.github/workflows/wc-enable-auto-merge.yaml
+    if: |
+      ! failure() && ! cancelled()
     permissions: {}
     needs: status-check
     secrets:
