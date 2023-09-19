@@ -8,6 +8,6 @@
 #   - all
 registries:
   - type: standard
-    ref: v4.49.0 # renovate: depName=aquaproj/aqua-registry
+    ref: v4.50.0 # renovate: depName=aquaproj/aqua-registry
 packages:
   - import: imports/*.yaml
