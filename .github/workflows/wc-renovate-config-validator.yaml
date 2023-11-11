@@ -4,6 +4,6 @@ on: workflow_call
 jobs:
   renovate-config-validator:
     # Validate Renovate Configuration by renovate-config-validator.
-    uses: suzuki-shunsuke/renovate-config-validator-workflow/.github/workflows/validate.yaml@3486167db0a31748bdd33f360388cbf9eb25a87a # v0.2.1
+    uses: suzuki-shunsuke/renovate-config-validator-workflow/.github/workflows/validate.yaml@4a378742d05b4e67aae34039d7c779ac913cd79d # v0.2.3
     permissions:
       contents: read
