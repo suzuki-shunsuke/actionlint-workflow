@@ -29,6 +29,7 @@ env:
 
 jobs:
   actionlint:
+    timeout-minutes: 30
     runs-on: ${{fromJSON(inputs.runs-on)}}
     permissions:
       pull-requests: write # For reviewdog
