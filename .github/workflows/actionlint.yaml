@@ -20,6 +20,11 @@ on:
           e.g.
           runs-on: '"macos-latest"'
           runs-on: '["foo"]'
+      actionlint_options:
+        required: false
+        type: string
+        description: |
+          actionlint's command line options such as `-ignore`.
 
 permissions: {}
 
@@ -45,8 +50,14 @@ jobs:
       - uses: suzuki-shunsuke/github-action-actionlint@60449a33b52da4f92a069b8af50d04515d6177bf # v0.1.3
         if: |
           github.event_name != 'pull_request' || ! github.event.pull_request.head.repo.fork
-      - run: actionlint
+        with:
+          actionlint_options: ${{inputs.actionlint_options}}
+      - run: |
+          set -euo pipefail
+          # shellcheck disable=SC2086
+          actionlint $ACTIONLINT_OPTIONS
         if: |
           github.event_name == 'pull_request' && github.event.pull_request.head.repo.fork
         env:
           AQUA_GITHUB_TOKEN: ${{github.token}}
+          ACTIONLINT_OPTIONS: ${{inputs.actionlint_options}}
