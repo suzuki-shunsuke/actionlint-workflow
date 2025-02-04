@@ -80,4 +80,4 @@ jobs:
       contents: read
       pull-requests: write # For reviewdog
     with:
-      aqua_version: v2.43.1
+      aqua_version: v2.43.2
