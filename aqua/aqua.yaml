@@ -1,13 +1,11 @@
 ---
+# yaml-language-server: $schema=https://raw.githubusercontent.com/aquaproj/aqua/v2.45.0/json-schema/aqua-yaml.json
 # aqua - Declarative CLI Version Manager
 # https://aquaproj.github.io/
-# checksum:
-#   enabled: true
-#   require_checksum: true
-#   supported_envs:
-#   - all
+checksum:
+  enabled: true
+  require_checksum: true
 registries:
   - type: standard
     ref: v4.324.1 # renovate: depName=aquaproj/aqua-registry
-packages:
-  - import: imports/*.yaml
+import_dir: imports
