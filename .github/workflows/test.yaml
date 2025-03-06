@@ -1,14 +1,11 @@
 ---
 name: test
-
 on: pull_request
-
 permissions: {}
-
 jobs:
   path-filter:
     # Get changed files to filter jobs
-    timeout-minutes: 30
+    timeout-minutes: 10
     outputs:
       update-aqua-checksums: ${{steps.changes.outputs.update-aqua-checksums}}
       renovate-config-validator: ${{steps.changes.outputs.renovate-config-validator}}
@@ -34,21 +31,6 @@ jobs:
             ghalint:
               - .github/workflows/*.yaml
               - aqua/imports/ghalint.yaml
-
-  status-check:
-    # This job is used for main branch's branch protection rule's status check.
-    # If all dependent jobs succeed or are skipped this job succeeds.
-    timeout-minutes: 30
-    runs-on: ubuntu-latest
-    needs:
-      - update-aqua-checksums
-      - test
-      - renovate-config-validator
-      - ghalint
-    permissions: {}
-    if: failure()
-    steps:
-      - run: exit 1
 
   renovate-config-validator:
     uses: ./.github/workflows/wc-renovate-config-validator.yaml
