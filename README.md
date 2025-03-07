@@ -2,6 +2,10 @@
 
 GitHub Actions Workflow for actionlint
 
+## :warning: DEPRECATION: Use actionlint-action
+
+https://github.com/suzuki-shunsuke/actionlint-action
+
 ## How to use
 
 ```yaml
