@@ -3,44 +3,15 @@ name: test
 on: pull_request
 permissions: {}
 jobs:
-  path-filter:
-    # Get changed files to filter jobs
-    timeout-minutes: 10
-    outputs:
-      renovate-config-validator: ${{steps.changes.outputs.renovate-config-validator}}
-      ghalint: ${{steps.changes.outputs.ghalint}}
-    runs-on: ubuntu-latest
-    permissions:
-      pull-requests: read # To get pull requests of private repository
-    steps:
-      - uses: dorny/paths-filter@de90cc6fb38fc0963ad72b210f1f284cd68cea36 # v3.0.2
-        id: changes
-        with:
-          filters: |
-            renovate-config-validator:
-              - renovate.json5
-              - .github/workflows/wc-renovate-config-validator.yaml
-              - .github/workflows/test.yaml
-            ghalint:
-              - .github/workflows/*.yaml
-              - aqua/imports/ghalint.yaml
-
-  renovate-config-validator:
-    uses: ./.github/workflows/wc-renovate-config-validator.yaml
-    needs: path-filter
-    if: needs.path-filter.outputs.renovate-config-validator == 'true'
-    permissions:
-      contents: read
-
-  ghalint:
-    needs: path-filter
-    if: needs.path-filter.outputs.ghalint == 'true'
-    uses: ./.github/workflows/wc-ghalint.yaml
-    permissions:
-      contents: read
-
   test:
-    uses: ./.github/workflows/actionlint.yaml
-    permissions:
-      contents: read
-      pull-requests: write # For reviewdog
+    runs-on: ubuntu-24.04
+    if: failure()
+    timeout-minutes: 10
+    permissions: {}
+    needs:
+      - main
+    steps:
+      - run: exit 1
+  main:
+    uses: ./.github/workflows/workflow_call_test.yaml
+    permissions: {}
