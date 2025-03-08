@@ -1,29 +1,17 @@
 # actionlint-workflow
 
-GitHub Actions Workflow for actionlint
+[![License](http://img.shields.io/badge/license-mit-blue.svg?style=flat-square)](https://raw.githubusercontent.com/suzuki-shunsuke/actionlint-workflow/main/LICENSE) | [action.yaml](action.yaml) | [source code](.github/workflows/actionlint.yaml)
+
+`actionlint-workflow` is a GitHub Actions Reusable Workflow for actionlint.
 
 ## How To Use
 
-Add `actionlint` to `Status checks that are required`.
+1. Add `actionlint` to `Status checks that are required`.
+2. Create a workflow:
 
-```yaml
----
-name: actionlint
-on: pull_request
-permissions: {}
-jobs:
-  actionlint:
-    runs-on: ubuntu-24.04
-    if: failure()
-    timeout-minutes: 10
-    permissions: {}
-    needs:
-      - actionlint
-    steps:
-      - run: exit 1
-  main:
-    uses: suzuki-shunsuke/actionlint-workflow/.github/workflows/actionlint.yaml@6196583ab88cd36f36f7260fca4e8e4b2c4c9b66 # v0.4.1
-    permissions:
-      pull-requests: write
-      contents: read
+[workflow](.github/workflows/example.yaml)
+
+```sh
+mkdir -p .github/workflows
+curl -Lq -o .github/workflows/actionlint.yaml https://raw.githubusercontent.com/suzuki-shunsuke/actionlint-workflow/refs/heads/main/.github/workflows/example.yaml
 ```
