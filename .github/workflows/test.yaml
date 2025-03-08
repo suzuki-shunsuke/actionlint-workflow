@@ -61,5 +61,3 @@ jobs:
     permissions:
       contents: read
       pull-requests: write # For reviewdog
-    with:
-      aqua_version: v2.45.0

@@ -9,7 +9,7 @@ jobs:
     timeout-minutes: 10
     permissions: {}
     needs:
-      - actionlint
+      - main
     steps:
       - run: exit 1
   main:
