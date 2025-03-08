@@ -39,6 +39,7 @@ jobs:
   main:
     timeout-minutes: 15
     runs-on: ubuntu-24.04
+    needs: path-filter
     if: needs.path-filter.outputs.value == 'true'
     permissions:
       pull-requests: write # For reviewdog
