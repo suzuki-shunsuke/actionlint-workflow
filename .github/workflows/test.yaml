@@ -3,15 +3,15 @@ name: test
 on: pull_request
 permissions: {}
 jobs:
-  test:
+  status-check:
     runs-on: ubuntu-24.04
     if: failure()
     timeout-minutes: 10
     permissions: {}
     needs:
-      - main
+      - test
     steps:
       - run: exit 1
-  main:
+  test:
     uses: ./.github/workflows/workflow_call_test.yaml
     permissions: {}
