@@ -2,24 +2,6 @@ name: actionlint
 on:
   workflow_call:
     inputs:
-      aqua_policy_allow:
-        required: false
-        type: string
-      aqua_policy_config:
-        required: false
-        type: string
-      aqua_version:
-        required: true
-        type: string
-      runs-on:
-        required: false
-        type: string
-        default: '"ubuntu-latest"'
-        description: |
-          JSON string for runs-on.
-          e.g.
-          runs-on: '"macos-latest"'
-          runs-on: '["foo"]'
       actionlint_options:
         required: false
         type: string
@@ -30,42 +12,41 @@ on:
         type: string
         description: |
           sparse checkout
-
+      path-filters:
+        required: false
+        type: string
+        description: |
+          path filters.
 permissions: {}
-
-env:
-  AQUA_POLICY_CONFIG: ${{inputs.aqua_policy_config}}
-  AQUA_LOG_COLOR: always
-
 jobs:
-  actionlint:
-    timeout-minutes: 30
-    runs-on: ${{fromJSON(inputs.runs-on)}}
+  path-filter:
+    timeout-minutes: 10
+    outputs:
+      value: ${{steps.changes.outputs.value}}
+    runs-on: ubuntu-24.04
+    permissions:
+      pull-requests: read
+    steps:
+      - uses: dorny/paths-filter@de90cc6fb38fc0963ad72b210f1f284cd68cea36 # v3.0.2
+        id: changes
+        with:
+          filters: |
+            value:
+              - .github/workflows/*.yml
+              - .github/workflows/*.yaml
+              ${{inputs.path-filters}}
+
+  main:
+    timeout-minutes: 15
+    runs-on: ubuntu-24.04
+    if: needs.path-filter.outputs.value == 'true'
     permissions:
       pull-requests: write # For reviewdog
       contents: read # For checkout private repository
     steps:
-      - uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683 # v4.2.2
+      - uses: suzuki-shunsuke/actionlint-action@cf6cff1c6bffd4a4c8a15db39a3a5870057d1946 # v0.0.2
         with:
           sparse-checkout: ${{inputs.sparse-checkout}}
-          persist-credentials: false
-      - uses: aquaproj/aqua-installer@e2d0136abcf70b7a2f6f505720640750557c4b33 # v3.1.1
-        with:
-          aqua_version: ${{inputs.aqua_version}}
-          policy_allow: ${{inputs.aqua_policy_allow}}
-        env:
-          AQUA_GITHUB_TOKEN: ${{github.token}}
-      - uses: suzuki-shunsuke/github-action-actionlint@4f0298e8f8b13fffbdc13207463d65e92205ad0c # v0.1.5
-        if: |
-          github.event_name != 'pull_request' || ! github.event.pull_request.head.repo.fork
-        with:
           actionlint_options: ${{inputs.actionlint_options}}
-      - run: |
-          set -euo pipefail
-          # shellcheck disable=SC2086
-          actionlint $ACTIONLINT_OPTIONS
-        if: |
-          github.event_name == 'pull_request' && github.event.pull_request.head.repo.fork
         env:
-          AQUA_GITHUB_TOKEN: ${{github.token}}
-          ACTIONLINT_OPTIONS: ${{inputs.actionlint_options}}
+          AQUA_LOG_COLOR: always
