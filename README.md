@@ -1,6 +1,6 @@
 # actionlint-workflow
 
-[![License](http://img.shields.io/badge/license-mit-blue.svg?style=flat-square)](https://raw.githubusercontent.com/suzuki-shunsuke/actionlint-workflow/main/LICENSE) | [action.yaml](action.yaml) | [source code](.github/workflows/actionlint.yaml)
+[![License](http://img.shields.io/badge/license-mit-blue.svg?style=flat-square)](https://raw.githubusercontent.com/suzuki-shunsuke/actionlint-workflow/main/LICENSE) | [source code](.github/workflows/actionlint.yaml)
 
 `actionlint-workflow` is a GitHub Actions Reusable Workflow for actionlint.
 
