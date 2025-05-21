@@ -45,7 +45,7 @@ jobs:
       pull-requests: write # For reviewdog
       contents: read # For checkout private repository
     steps:
-      - uses: suzuki-shunsuke/actionlint-action@66efc7d429734a9843e4f31ab23a19a2d6f67c12 # v0.0.3
+      - uses: suzuki-shunsuke/actionlint-action@d8eaae9d4ff5bd7b5d02f225514fafded6efb638 # v0.0.4
         with:
           sparse-checkout: ${{inputs.sparse-checkout}}
           actionlint_options: ${{inputs.actionlint_options}}
