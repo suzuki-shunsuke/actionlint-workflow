@@ -12,20 +12,14 @@ on:
         type: string
         description: |
           sparse checkout
-      path-filters:
-        required: false
-        type: string
-        description: |
-          path filters.
 permissions: {}
 jobs:
-  path-filter:
-    timeout-minutes: 10
-    outputs:
-      value: ${{steps.changes.outputs.value}}
+  main:
+    timeout-minutes: 15
     runs-on: ubuntu-24.04
     permissions:
-      pull-requests: read
+      pull-requests: write # For reviewdog
+      contents: read # For checkout private repository
     steps:
       - uses: dorny/paths-filter@de90cc6fb38fc0963ad72b210f1f284cd68cea36 # v3.0.2
         id: changes
@@ -34,18 +28,8 @@ jobs:
             value:
               - .github/workflows/*.yml
               - .github/workflows/*.yaml
-              ${{inputs.path-filters}}
-
-  main:
-    timeout-minutes: 15
-    runs-on: ubuntu-24.04
-    needs: path-filter
-    if: needs.path-filter.outputs.value == 'true'
-    permissions:
-      pull-requests: write # For reviewdog
-      contents: read # For checkout private repository
-    steps:
-      - uses: suzuki-shunsuke/actionlint-action@d8eaae9d4ff5bd7b5d02f225514fafded6efb638 # v0.0.4
+      - if: steps.changes.outputs.value == 'true'
+        uses: suzuki-shunsuke/actionlint-action@bd14b17b70e757910c19094799c761e8ad4bb5e8 # v0.0.5
         with:
           sparse-checkout: ${{inputs.sparse-checkout}}
           actionlint_options: ${{inputs.actionlint_options}}
