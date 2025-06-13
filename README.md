@@ -4,6 +4,10 @@
 
 `actionlint-workflow` is a GitHub Actions Reusable Workflow for actionlint.
 
+## :warning: Deprecated :warning:
+
+Use [suzuki-shunsuke/actionlint-action](https://github.com/suzuki-shunsuke/actionlint-action).
+
 ## How To Use
 
 1. Add `actionlint` to `Status checks that are required`.
